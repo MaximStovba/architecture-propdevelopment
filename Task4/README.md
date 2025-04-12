@@ -11,6 +11,9 @@
 - create-role-pod-deployer-devops.sh
 - create-role-pod-reader-operations.sh
 
-### 4. Cкрипты, чтобы связать пользователей с ролями:
+### 5. Cкрипты, чтобы связать пользователей с ролями:
 - bind-devops-sa-to-role.sh
 - bind-operator-sa-to-role.sh
+
+### Проверка доступа:
+- verify_access.sh
