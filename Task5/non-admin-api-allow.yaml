@@ -1,0 +1,46 @@
+# 1. Разрешить трафик между front-end и back-end-api
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-frontend-to-backend
+spec:
+  podSelector:
+    matchLabels:
+      role: back-end-api
+  policyTypes:
+  - Ingress # это правило разрешает входящий трафик
+  ingress:
+  - from:
+    - podSelector:
+        matchLabels:
+          role: front-end
+---
+# 2. Разрешить трафик между admin front-end и admin back-end-api
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-admin-frontend-to-backend
+spec:
+  podSelector:
+    matchLabels:
+      role: admin-back-end-api
+  policyTypes:
+  - Ingress # это правило разрешает входящий трафик
+  ingress:
+  - from:
+    - podSelector:
+        matchLabels:
+          role: admin-front-end
+---
+# 3. Заблокировать весь остальной трафик
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: default-deny-all
+spec:
+  podSelector: {}
+  policyTypes:
+  - Ingress
+  - Egress
+  ingress: [] # это правило запрещает входящий трафик
+  egress: [] # это правило запрещает исходящий трафик
