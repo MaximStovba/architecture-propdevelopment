@@ -1,0 +1,36 @@
+@startuml PropDevelopmentSystem
+title PropDevelopment System Context Diagram As-Is
+
+top to bottom direction
+
+!include ./template/C4_Component.puml
+
+' Акторы
+Person(client, "Клиент", "Пользователь, бронирующий недвижимость")
+Person(owner, "Собственник", "Жилец, использующий ЖКХ-сервисы")
+Person(manager, "Менеджер", "Работает с клиентами и объектами недвижимости, администрирует онлайн-сделки")
+Person(ba, "Бизнес-аналитик", "Оптимизирует процессы и развивает прикладные бизнес-системы. Администрирует системы")
+Person(accountant, "Бухгалтер", "Ведёт бухгалтерский учёт")
+Person(bi, "Аналитик BI", "Анализирует данные и готовит отчётность")
+
+' Основная система
+System(PropPlatform, "Платформа PropDevelopment", "Единая цифровая система продаж и управления недвижимостью")
+
+' Внешние системы
+System_Ext(govSystem, "Государственные регистрационные ", "Отвечают за регистрационные действия с объектами недвижимости")
+System_Ext(partnerAPI, "Поставщик ресурсов ЖКХ", "API управляющих компаний, поставщиков")
+System_Ext(payments, "Платёжные системы", "Провайдер онлайн-платежей")
+
+' Взаимодействия
+Rel(client, PropPlatform, "Бронирование, осмотр, онлайн-сделка")
+Rel(owner, PropPlatform, "Услуги ЖКХ через приложение")
+Rel(manager, PropPlatform, "Работа с клиентами и сделками")
+Rel(ba, PropPlatform, "Получение данных для анализа")
+Rel(accountant, PropPlatform, "Ввод и обработка финансовых данных")
+Rel(bi, PropPlatform, "Работа с данными")
+
+Rel(PropPlatform, govSystem, "Интеграция для госуслуг")
+Rel(PropPlatform, partnerAPI, "Данные о ЖКХ, жильцах, оплатах")
+Rel(PropPlatform, payments, "Обработка платежей")
+
+@enduml
